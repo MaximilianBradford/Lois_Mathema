@@ -2,8 +2,6 @@ import React from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
 
-
-
 export default function Layout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -17,7 +15,7 @@ export default function Layout() {
           },
           headerShown: true,
           swipeEnabled: true,
-          gestureEnabled: true
+          gestureEnabled: true,
         }}
       >
         <Drawer.Screen 
@@ -27,7 +25,7 @@ export default function Layout() {
             title: "Calculator",
           }}
         />
-                <Drawer.Screen 
+        <Drawer.Screen 
           name="unit_conv"
           options={{
             drawerLabel: "Unit Converter",
