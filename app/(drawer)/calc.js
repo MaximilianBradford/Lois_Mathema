@@ -8,9 +8,21 @@ export default function App() {
     setInput(input + value);
   };
 
+  const handleParenthesis = () => {
+    const openParentheses = (input.match(/\(/g) || []).length;
+    const closeParentheses = (input.match(/\)/g) || []).length;
+    if (openParentheses > closeParentheses) {
+      setInput(input + ')');
+    } else {
+      setInput(input + '(');
+    }
+  };
+
   const calculateResult = () => {
     try {
-      setInput(eval(input).toString());
+      let expression = input.replace(/√(\d+)/g, 'Math.sqrt($1)');
+      expression = expression.replace(/(\d+)%/g, '($1/100)');
+      setInput(eval(expression).toString());
     } catch (error) {
       setInput('Error');
     }
@@ -21,24 +33,31 @@ export default function App() {
   };
 
   const calculatePercentage = () => {
-    try {
-      setInput((parseFloat(input) / 100).toString());
-    } catch (error) {
-      setInput('Error');
-    }
+    setInput(input + '%');
   };
 
   const calculateSquareRoot = () => {
-    try {
-      setInput(Math.sqrt(parseFloat(input)).toString());
-    } catch (error) {
-      setInput('Error');
-    }
+    setInput(input + '√');
   };
 
   const toggleSign = () => {
+    if (input === '') {
+      return;
+    }
     try {
-      setInput((parseFloat(input) * -1).toString());
+      // Split the input into parts based on operators
+      const parts = input.split(/([+\–*/√%])/);
+      // Identify the last number
+      let lastPart = parts.pop();
+      if (lastPart.startsWith('-')) {
+        // If the last part is already negative, remove the negative sign
+        lastPart = lastPart.substring(1);
+      } else {
+        // Otherwise, add a negative sign
+        lastPart = '-' + lastPart;
+      }
+      // Reconstruct the input string with the toggled number
+      setInput(parts.join('') + lastPart);
     } catch (error) {
       setInput('Error');
     }
@@ -48,6 +67,10 @@ export default function App() {
     if (!input.includes('.')) {
       setInput(input + '.');
     }
+  };
+
+  const handleDelete = () => {
+    setInput(input.slice(0, -1));
   };
 
   return (
@@ -68,7 +91,7 @@ export default function App() {
         <Button title="4" onPress={() => handlePress('4')} />
         <Button title="5" onPress={() => handlePress('5')} />
         <Button title="6" onPress={() => handlePress('6')} />
-        <Button title="-" onPress={() => handlePress('-')} />
+        <Button title="-" onPress={() => handlePress('–')} />
       </View>
       <View style={styles.buttonRow}>
         <Button title="7" onPress={() => handlePress('7')} />
@@ -88,6 +111,10 @@ export default function App() {
         <Button title="±" onPress={toggleSign} />
         <Button title="." onPress={handleDecimal} />
       </View>
+      <View style={styles.buttonRow}>
+        <Button title="()" onPress={handleParenthesis} />
+        <Button title="⌫" onPress={handleDelete} />
+      </View>
     </View>
   );
 }
@@ -100,7 +127,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 32,
     marginBottom: 20,
   },
   input: {
