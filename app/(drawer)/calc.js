@@ -46,18 +46,13 @@ export default function App() {
       return;
     }
     try {
-      // Split the input into parts based on operators
       const parts = input.split(/([+\–*/√%])/);
-      // Identify the last number
       let lastPart = parts.pop();
       if (lastPart.startsWith('-')) {
-        // If the last part is already negative, remove the negative sign
         lastPart = lastPart.substring(1);
       } else {
-        // Otherwise, add a negative sign
         lastPart = '-' + lastPart;
       }
-      // Reconstruct the input string with the toggled number
       setInput(parts.join('') + lastPart);
     } catch (error) {
       setInput("Error");
@@ -76,16 +71,26 @@ export default function App() {
 
   return (
     <View style={CalculatorStyles.container}>
-      {/* <Text style={styles.title}>Calculator</Text> */}
       <TextInput
         style={CalculatorStyles.input}
         value={input}
         editable={false}
       />
       <View style={CalculatorStyles.buttonRow}>
-        <TouchableOpacity style={CalculatorStyles.button} onPress={clearInput}>
+      <TouchableOpacity style={CalculatorStyles.button_top} onPress={clearInput}>
           <Text style={CalculatorStyles.buttonText}>AC</Text>
         </TouchableOpacity>
+      <TouchableOpacity
+          style={CalculatorStyles.button_top}
+          onPress={handleDelete}
+        >
+          <Text style={CalculatorStyles.buttonText}>⌫</Text>
+        </TouchableOpacity>
+        
+      </View>
+
+      <View style={CalculatorStyles.buttonRow}>
+        
         <TouchableOpacity
           style={CalculatorStyles.button}
           onPress={calculatePercentage}
@@ -101,6 +106,13 @@ export default function App() {
         <TouchableOpacity style={CalculatorStyles.button} onPress={toggleSign}>
           <Text style={CalculatorStyles.buttonText}>±</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={handleParenthesis}
+        >
+          <Text style={CalculatorStyles.buttonText}>( )</Text>
+        </TouchableOpacity>
+        
       </View>
 
       <View style={CalculatorStyles.buttonRow}>
@@ -209,10 +221,6 @@ export default function App() {
         >
           <Text style={CalculatorStyles.buttonText}>/</Text>
         </TouchableOpacity>
-      </View>
-      <View style={styles.buttonRow}>
-        <Button title="()" onPress={handleParenthesis} />
-        <Button title="⌫" onPress={handleDelete} />
       </View>
     </View>
   );

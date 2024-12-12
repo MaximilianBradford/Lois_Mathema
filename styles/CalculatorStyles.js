@@ -5,7 +5,7 @@ const CalculatorStyles = StyleSheet.create({
     container: {
         flex: 1, 
         backgroundColor: Colors.background,
-        justifyContent: 'flex-end', 
+        justifyContent: 'center', 
         alignItems: 'center',  
     },
     title: {
@@ -39,6 +39,19 @@ const CalculatorStyles = StyleSheet.create({
       button: {
         width: 70,
         height: 70,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: Colors.secondary,
+        borderRadius: 10,
+        marginHorizontal: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 6,
+      },
+      button_top: {
+        width: 140,
+        height: 50,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: Colors.secondary,
