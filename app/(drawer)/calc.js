@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import React, { useState } from "react";
+import { Text, TextInput, View, TouchableOpacity } from "react-native";
+import CalculatorStyles from "../../styles/CalculatorStyles";
 
 export default function App() {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
 
   const handlePress = (value) => {
     setInput(input + value);
@@ -12,19 +13,19 @@ export default function App() {
     try {
       setInput(eval(input).toString());
     } catch (error) {
-      setInput('Error');
+      setInput("Error");
     }
   };
 
   const clearInput = () => {
-    setInput('');
+    setInput("");
   };
 
   const calculatePercentage = () => {
     try {
       setInput((parseFloat(input) / 100).toString());
     } catch (error) {
-      setInput('Error');
+      setInput("Error");
     }
   };
 
@@ -32,7 +33,7 @@ export default function App() {
     try {
       setInput(Math.sqrt(parseFloat(input)).toString());
     } catch (error) {
-      setInput('Error');
+      setInput("Error");
     }
   };
 
@@ -40,80 +41,152 @@ export default function App() {
     try {
       setInput((parseFloat(input) * -1).toString());
     } catch (error) {
-      setInput('Error');
+      setInput("Error");
     }
   };
 
   const handleDecimal = () => {
-    if (!input.includes('.')) {
-      setInput(input + '.');
+    if (!input.includes(".")) {
+      setInput(input + ".");
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Calculator</Text>
+    <View style={CalculatorStyles.container}>
+      {/* <Text style={styles.title}>Calculator</Text> */}
       <TextInput
-        style={styles.input}
+        style={CalculatorStyles.input}
         value={input}
         editable={false}
       />
-      <View style={styles.buttonRow}>
-        <Button title="1" onPress={() => handlePress('1')} />
-        <Button title="2" onPress={() => handlePress('2')} />
-        <Button title="3" onPress={() => handlePress('3')} />
-        <Button title="+" onPress={() => handlePress('+')} />
+      <View style={CalculatorStyles.buttonRow}>
+        <TouchableOpacity style={CalculatorStyles.button} onPress={clearInput}>
+          <Text style={CalculatorStyles.buttonText}>AC</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={calculatePercentage}
+        >
+          <Text style={CalculatorStyles.buttonText}>%</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={calculateSquareRoot}
+        >
+          <Text style={CalculatorStyles.buttonText}>√</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={CalculatorStyles.button} onPress={toggleSign}>
+          <Text style={CalculatorStyles.buttonText}>±</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.buttonRow}>
-        <Button title="4" onPress={() => handlePress('4')} />
-        <Button title="5" onPress={() => handlePress('5')} />
-        <Button title="6" onPress={() => handlePress('6')} />
-        <Button title="-" onPress={() => handlePress('-')} />
+
+      <View style={CalculatorStyles.buttonRow}>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={() => handlePress("7")}
+        >
+          <Text style={CalculatorStyles.buttonText}>7</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={() => handlePress("8")}
+        >
+          <Text style={CalculatorStyles.buttonText}>8</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={() => handlePress("9")}
+        >
+          <Text style={CalculatorStyles.buttonText}>9</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={() => handlePress("*")}
+        >
+          <Text style={CalculatorStyles.buttonText}>×</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.buttonRow}>
-        <Button title="7" onPress={() => handlePress('7')} />
-        <Button title="8" onPress={() => handlePress('8')} />
-        <Button title="9" onPress={() => handlePress('9')} />
-        <Button title="*" onPress={() => handlePress('*')} />
+
+      <View style={CalculatorStyles.buttonRow}>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={() => handlePress("4")}
+        >
+          <Text style={CalculatorStyles.buttonText}>4</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={() => handlePress("5")}
+        >
+          <Text style={CalculatorStyles.buttonText}>5</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={() => handlePress("6")}
+        >
+          <Text style={CalculatorStyles.buttonText}>6</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={() => handlePress("-")}
+        >
+          <Text style={CalculatorStyles.buttonText}>-</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.buttonRow}>
-        <Button title="C" onPress={clearInput} />
-        <Button title="0" onPress={() => handlePress('0')} />
-        <Button title="=" onPress={calculateResult} />
-        <Button title="/" onPress={() => handlePress('/')} />
+
+      <View style={CalculatorStyles.buttonRow}>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={() => handlePress("1")}
+        >
+          <Text style={CalculatorStyles.buttonText}>1</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={() => handlePress("2")}
+        >
+          <Text style={CalculatorStyles.buttonText}>2</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={() => handlePress("3")}
+        >
+          <Text style={CalculatorStyles.buttonText}>3</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={() => handlePress("+")}
+        >
+          <Text style={CalculatorStyles.buttonText}>+</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.buttonRow}>
-        <Button title="%" onPress={calculatePercentage} />
-        <Button title="√" onPress={calculateSquareRoot} />
-        <Button title="±" onPress={toggleSign} />
-        <Button title="." onPress={handleDecimal} />
+
+      <View style={CalculatorStyles.buttonRow}>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={handleDecimal}
+        >
+          <Text style={CalculatorStyles.buttonText}>.</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={() => handlePress("0")}
+        >
+          <Text style={CalculatorStyles.buttonText}>0</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={calculateResult}
+        >
+          <Text style={CalculatorStyles.buttonText}>=</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={CalculatorStyles.button}
+          onPress={() => handlePress("/")}
+        >
+          <Text style={CalculatorStyles.buttonText}>/</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
-  input: {
-    height: 50,
-    width: '100%',
-    textAlign: 'right',
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingRight: 10,
-    fontSize: 24,
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    marginBottom: 10,
-  },
-});
