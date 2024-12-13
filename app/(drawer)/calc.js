@@ -4,6 +4,21 @@ import CalculatorStyles from "../../styles/CalculatorStyles";
 
 export default function App() {
   const [input, setInput] = useState("");
+  const [inputhistory, setInputHistory] = useState([]);
+
+  const historyData = (answer) => {
+    //console.log(expression)
+    const equation = input + ' = ' + answer;
+    if (inputhistory.length >= 3) {
+      console.log(equation)
+      const newHistory = [...inputhistory.slice(1), equation];
+      setInputHistory(newHistory);
+    } else {
+      //const equation = input + ' = ' + eval(expression).toString()
+      console.log(equation)
+      setInputHistory([...inputhistory, equation]);
+    }
+  };
 
   const handlePress = (value) => {
     setInput(input + value);
@@ -23,9 +38,20 @@ export default function App() {
     try {
       let expression = input.replace(/√(\d+)/g, 'Math.sqrt($1)');
       expression = expression.replace(/(\d+)%/g, '($1/100)');
-      setInput(eval(expression).toString());
+      console.log(expression);
+      const result = eval(expression).toString();
+      if (result.length > 10) {
+        const number_alt = parseFloat(result);
+        setInput(number_alt.toFixed(10).toString());
+        historyData(number_alt.toFixed(10).toString());
+      } else {
+        setInput(result.toString());
+        historyData(result.toString());
+      }
+      //historyData(result);
     } catch (error) {
       setInput("Error");
+      console.log(error);
     }
   };
 
@@ -60,7 +86,9 @@ export default function App() {
   };
 
   const handleDecimal = () => {
-    if (!input.includes(".")) {
+    const parts = input.split(/[\+\-\*\/]/); 
+    const lastPart = parts[parts.length - 1]; 
+    if (!lastPart.includes(".")) {
       setInput(input + ".");
     }
   };
@@ -71,11 +99,23 @@ export default function App() {
 
   return (
     <View style={CalculatorStyles.container}>
-      <TextInput
-        style={CalculatorStyles.input}
-        value={input}
-        editable={false}
-      />
+        <View style = {{border: 2, backgroundColor: 'white', borderColor: 'black', width: '100%', height: '25%', marginBottom: 10}}>  
+          <View style={CalculatorStyles.historyContainer}>
+            {/* <Text style={CalculatorStyles.historyTitle}>History</Text> */}
+            {inputhistory.map((item, index) => (
+              <Text key={index} style={CalculatorStyles.historyText}> 
+                {item}
+              </Text>
+            ))} 
+            
+          </View>
+          <TextInput
+            style={CalculatorStyles.input}
+            value={input}
+            editable={false}
+          />
+      </View>
+      
       <View style={CalculatorStyles.buttonRow}>
       <TouchableOpacity style={CalculatorStyles.button_top} onPress={clearInput}>
           <Text style={CalculatorStyles.buttonText}>AC</Text>

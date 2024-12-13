@@ -70,12 +70,41 @@ const CalculatorStyles = StyleSheet.create({
         height: 70,  
         width: '90%',  
         textAlign: 'right',
-        borderWidth: 1,
+        //borderWidth: 1,
         marginBottom: 30,  
         paddingRight: 15,  
         fontSize: 36,  
         borderRadius: 10,  
-        backgroundColor: 'white',
+        //backgroundColor: 'white',
+      },
+      historyContainer: {
+        height: 80,
+        width: '90%',
+        alignItems: 'flex-end',
+        marginBottom: 20,
+      },
+      historyText: {
+        //borderWidth: 1,  
+        paddingRight: 15,  
+        fontSize: 18,  
+        borderRadius: 10,  
+        color: Colors.text,
+      },
+      historyTitle: {
+        alignSelf: 'center', // Center the title
+        textAlign: 'center',
+        marginBottom: 5,
+        paddingRight: 15,
+        fontSize: 18,
+        fontWeight: 'bold',
+        borderRadius: 10,
+        color: Colors.text,
+      },
+      mainScreen: { 
+        flex: 1, 
+        justifyContent: 'flex-end', 
+        alignItems: 'flex-end', 
+        width: '100%',
       },
       
 });
