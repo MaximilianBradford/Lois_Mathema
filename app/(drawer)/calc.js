@@ -36,7 +36,7 @@ export default function App() {
 
   const calculateResult = () => {
     try {
-      let expression = input.replace(/√(\d+)/g, 'Math.sqrt($1)');
+      let expression = input.replace(/√(\d+)/g, '(Math.sqrt($1))');
       expression = expression.replace(/(\d+)%/g, '($1/100)');
       console.log(expression);
       const result = eval(expression).toString();
@@ -99,7 +99,7 @@ export default function App() {
 
   return (
     <View style={CalculatorStyles.container}>
-        <View style = {{border: 2, backgroundColor: 'white', borderColor: 'black', width: '100%', height: '25%', marginBottom: 10}}>  
+        <View style = {CalculatorStyles.mainScreen}>  
           <View style={CalculatorStyles.historyContainer}>
             {/* <Text style={CalculatorStyles.historyTitle}>History</Text> */}
             {inputhistory.map((item, index) => (
@@ -114,7 +114,7 @@ export default function App() {
             value={input}
             editable={false}
           />
-      </View>
+        </View>
       
       <View style={CalculatorStyles.buttonRow}>
       <TouchableOpacity style={CalculatorStyles.button_top} onPress={clearInput}>
